@@ -14,10 +14,11 @@ if (isset($_POST['btnRegister'])) {
    $phone = $_POST['phone'];
    $gender = $_POST['gender'];
    $ht = $_POST['address'];
+   $role = 'customer';
    $fn = strtoupper($_POST['fullname']);
-   $sql = "INSERT INTO `user` (`username`, `fullname`, `password`, `email`, `phone`, `gender`, `address`) VALUES (?,?,?,?,?,?,?)";
+   $sql = "INSERT INTO `user` (`role`,`username`, `fullname`, `password`, `email`, `phone`, `gender`, `address`) VALUES (?,?,?,?,?,?,?,?)";
    $re = $dblink->prepare($sql);
-   $v = [$usr,$fn,$pass,$email,$phone,$gender,$ht];
+   $v = [$role,$usr,$fn,$pass,$email,$phone,$gender,$ht];
    $stmt = $re->execute($v);
    if ($stmt) {
        echo "Congratulations";

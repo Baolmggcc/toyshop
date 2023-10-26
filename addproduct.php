@@ -5,11 +5,25 @@ require_once('headeradmin.php');
 ?>
 <?php
 require_once('connect.php');
+
+$c = new Connect();//goi lop 2 ham
+$dbLink = $c->connectToMySQL();//truy van k dieu kien option
+
+$SQL = 'SELECT * FROM stores';
+$SQ = 'SELECT * FROM category';
+$sq = 'SELECT * FROM supplier';
+$rel=$dbLink->query($SQL);
+$rem=$dbLink->query($sq);
+$r=$dbLink->query($SQ);
+
+
+
 if(isset($_POST['btn_addproduct'])){
     $c = new Connect();
     $dbLink = $c->connectToPDO();
     $id = strtoupper($_POST['productid']);
     $name = $_POST['productname'];
+    $sto = $_POST['storeid'];
     $cat = $_POST['categoryid'];
     $sup = $_POST['supplierid'];
     $iprice = $_POST['importprice'];
@@ -18,15 +32,16 @@ if(isset($_POST['btn_addproduct'])){
     $desc = $_POST['product_description'];
     $importdate = date('Y-m-d' , strtotime($_POST['date']));
 
+
     $img = str_replace(' ','-',$_FILES['Pro_image']['name']);
     $imgdir='./img/';//coppy hinh vao thu muc
     $flag= move_uploaded_file(
         $_FILES['Pro_image']['tmp_name'],$imgdir.$img
     );
     if($flag){
-        $sql ="INSERT INTO `product` (`productid`, `productname`, `supplierid`, `categoryid`, `importprice`, `sellprice`, `quantity`, `pimage`, `date`, `disciption`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        $sql ="INSERT INTO `product` (`productid`, `productname`, `storeid`, `supplierid`, `categoryid`, `importprice`, `sellprice`, `quantity`, `pimage`, `date`, `disciption`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         $re = $dbLink->prepare($sql);
-        $v = [$id,$name,$sup,$cat,$iprice,$sprice,$quan,$img,$importdate,$desc];
+        $v = [$id,$name,$sto,$sup,$cat,$iprice,$sprice,$quan,$img,$importdate,$desc];
         $stmt = $re->execute($v);
         if($stmt){
             echo "Congrats";
@@ -57,6 +72,22 @@ if(isset($_POST['btn_addproduct'])){
                   <input id="product_id" name="productid" placeholder="PRODUCT ID" class="form-control input-md" required="" type="text">
                 </div>
 
+                <div class="form-outline mb-4">
+                  <label for="storeid">STORE ID</label> 
+                
+                  <select name="storeid" id="storeid " class="form-select form-control form-control-lg">
+                    <option selected value="unknown">STORE ID</option>
+                    <?php 
+                  if($rel->num_rows>0){ 
+                    while($row=$rel->fetch_assoc()){
+                  ?>
+                    <option><?=$row['storeid']?></option>
+                    <?php
+                    }
+                  }
+                    ?>
+                </select>
+                </div>
 
                 <div class="form-outline mb-4">
                   <label for="product_name">PRODUCT NAME</label>  
@@ -65,12 +96,36 @@ if(isset($_POST['btn_addproduct'])){
 
                 <div class="form-outline mb-4">
                   <label for="cateloryid">CATEGORY ID</label> 
-                  <input id="categoryid" name="categoryid" placeholder="CATEGORY ID" class="form-control input-md" required="" type="text">
+                
+                  <select name="categoryid" id="categoryid " class="form-select form-control form-control-lg">
+                    <option selected value="unknown">CATEGORY ID</option>
+                    <?php 
+                  if($r->num_rows>0){ 
+                    while($row=$r->fetch_assoc()){
+                  ?>
+                    <option><?=$row['categoryid']?></option>
+                    <?php
+                    }
+                  }
+                    ?>
+                </select>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <label for="product_supplier">SUPPLIER ID</label>    
-                  <input id="supplierid" name="supplierid" placeholder="SUPPLIER ID" class="form-control input-md" required="" type="text">
+                  <label for="supplierid">SUPPLIER ID</label> 
+                
+                  <select name="supplierid" id="supplierid " class="form-select form-control form-control-lg">
+                    <option selected value="unknown">SUPPLIER ID</option>
+                    <?php 
+                  if($rem->num_rows>0){ 
+                    while($row=$rem->fetch_assoc()){
+                  ?>
+                    <option><?=$row['supplierid']?></option>
+                    <?php
+                    }
+                  }
+                    ?>
+                </select>
                 </div>
 
                 <div class="form-outline mb-4">

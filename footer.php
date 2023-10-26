@@ -4,7 +4,7 @@
    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <footer class="text-center text-lg-start text-muted" style="background-color: #eae8e1;">
+    <footer class="text-center text-lg-start text-muted" style="background-color: #eae8e1;">      
 
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
  

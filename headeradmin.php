@@ -52,6 +52,7 @@
                         <a href="categorymanager.php" class="dropdown-item">CATEGORY</a>
                         <a href="suppliermanager.php" class="dropdown-item">SUPPLIER</a>
                         <a href="productmanager.php" class="dropdown-item">PRODUCTS</a>
+                        <a href="storemanager.php" class="dropdown-item">STORES</a>
                     </div>
                 </div>           
                     <a href="searchadmin.php" class="nav-link ">SEARCH</a>                 
